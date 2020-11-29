@@ -1,5 +1,6 @@
 package ru.smak.gui;
 
+import ru.smak.gui.graphics.FinishedListener;
 import ru.smak.gui.graphics.FractalPainter;
 import ru.smak.gui.graphics.SelectionPainter;
 import ru.smak.gui.graphics.components.GraphicsPanel;
@@ -57,12 +58,19 @@ public class MainWindow extends JFrame {
         mainPanel.addPainter(fp);
         var sp = new SelectionPainter(mainPanel.getGraphics());
 
+        fp.addFinishedListener(new FinishedListener() {
+            @Override
+            public void finished() {
+                mainPanel.repaint();
+            }
+        });
         mainPanel.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 plane.setWidth(mainPanel.getWidth());
                 plane.setHeight(mainPanel.getHeight());
                 sp.setGraphics(mainPanel.getGraphics());
+                mainPanel.repaint();
             }
         });
         mainPanel.addMouseListener(new MouseAdapter() {

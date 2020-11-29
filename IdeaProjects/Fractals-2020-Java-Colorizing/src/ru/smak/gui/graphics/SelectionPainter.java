@@ -61,18 +61,12 @@ public class SelectionPainter {
         if (startPoint!=null && currentPoint!=null) {
             g.setXORMode(Color.WHITE);
             g.setColor(Color.BLACK);
-            int width = Math.abs(currentPoint.x - startPoint.x);
-            int height = Math.abs(currentPoint.y - startPoint.y);
-            if(startPoint.x < currentPoint.x) {
-                if(startPoint.y< currentPoint.y)
-                    g.drawRect(startPoint.x, startPoint.y, width, height);
-                g.drawRect(startPoint.x, currentPoint.y, width, height);
-            }
-            if(startPoint.x>currentPoint.x){
-                if(startPoint.y< currentPoint.y)
-                    g.drawRect(currentPoint.x, startPoint.y, width,height);
-                g.drawRect(currentPoint.x, currentPoint.y, width,height);
-            }
+            g.drawRect(
+                    Math.min(startPoint.x,currentPoint.x),
+                    Math.min(startPoint.y,currentPoint.y),
+                    Math.abs(currentPoint.x - startPoint.x),
+                    Math.abs(currentPoint.y - startPoint.y)
+            );
             g.setPaintMode();
         }
     }
